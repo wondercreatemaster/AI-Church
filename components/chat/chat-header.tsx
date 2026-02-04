@@ -1,6 +1,6 @@
 "use client";
 
-import { Cross, Menu, MoreVertical, MessageSquarePlus, Settings, Eye, MapPin, BookOpen, Info, Shield, UserCircle, GitCompare, MessageCircle, BookMarked, History, Mic, MessageSquare } from "lucide-react";
+import { Cross, Menu, MoreVertical, MessageSquarePlus, Settings, Eye, MapPin, BookOpen, Info, Shield, UserCircle, GitCompare, MessageCircle, BookMarked, History, Mic, MessageSquare, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -233,6 +233,12 @@ export function ChatHeader({ stage, onNewConversation, onChangeBackground, sideb
                 <Link href="/conversations">
                   <History className="mr-2 h-4 w-4" />
                   All Conversations
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/training">
+                  <Database className="mr-2 h-4 w-4" />
+                  Add training data
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />

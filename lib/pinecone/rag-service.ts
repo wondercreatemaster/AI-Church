@@ -24,6 +24,9 @@ export interface RAGContext {
  * Generate embedding for a text query using OpenAI's text-embedding-3-large
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('Missing environment variable: "OPENAI_API_KEY"');
+  }
   try {
     const response = await openai.embeddings.create({
       model: PINECONE_CONFIG.embeddingModel,
@@ -34,7 +37,9 @@ export async function generateEmbedding(text: string): Promise<number[]> {
     return response.data[0].embedding;
   } catch (error) {
     console.error("Error generating embedding:", error);
-    throw new Error("Failed to generate embedding");
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to generate embedding"
+    );
   }
 }
 

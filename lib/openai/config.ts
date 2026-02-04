@@ -1,12 +1,9 @@
 import OpenAI from "openai";
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error('Missing environment variable: "OPENAI_API_KEY"');
-}
-
-// Initialize OpenAI client
+// Initialize OpenAI client.
+// IMPORTANT: Do not throw at import-time (breaks Next build/routes). Validate at call-sites.
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY ?? "",
 });
 
 // Model configuration

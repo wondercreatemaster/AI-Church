@@ -1,12 +1,9 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 
-if (!process.env.PINECONE_API_KEY) {
-  throw new Error('Missing environment variable: "PINECONE_API_KEY"');
-}
-
-// Initialize Pinecone client
+// Initialize Pinecone client.
+// IMPORTANT: Do not throw at import-time (breaks Next build/routes). Validate at call-sites.
 export const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY,
+  apiKey: process.env.PINECONE_API_KEY ?? "",
 });
 
 // Pinecone configuration
@@ -20,6 +17,9 @@ export const PINECONE_CONFIG = {
 
 // Get Pinecone index
 export function getPineconeIndex() {
+  if (!isPineconeConfigured()) {
+    throw new Error('Missing environment variable: "PINECONE_API_KEY"');
+  }
   return pinecone.index(PINECONE_CONFIG.indexName);
 }
 
